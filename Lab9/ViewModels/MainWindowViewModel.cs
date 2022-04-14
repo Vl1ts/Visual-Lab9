@@ -121,16 +121,14 @@ namespace Lab9.ViewModels
             ImagesList.Clear();
             foreach (var currentObject in Directory.GetFiles(Directory.GetParent(SelectedObject.Path).FullName))
             {
-                int amount = 0;
                 var fileData = new FileInfo(currentObject);
                 if (fileData.Extension == ".ico" || fileData.Extension == ".jpg" || fileData.Extension == ".jpeg" || fileData.Extension == ".png")
                 {
                     if (currentObject == SelectedObject.Path)
                     {
-                        ImageIndex = amount;
+                        ImageIndex = ImagesList.Count;
                     }
                     ImagesList.Add(currentObject);
-                    ++amount;
                 }
             }
             if (ImagesList.Count > 1)
@@ -145,7 +143,7 @@ namespace Lab9.ViewModels
             try
             {
                 --ImageIndex;
-                if (ImageIndex < 0)
+                if (ImageIndex <= 0)
                 {
                     ImageIndex = 0;
                     IsLeftOn = false;      
