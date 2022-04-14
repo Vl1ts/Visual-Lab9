@@ -1,0 +1,53 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Lab9.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		Width="800" Height="450"
+        x:Class="Lab9.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+		xmlns:models="using:Lab9.Models"
+        Title="Lab9">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+	<Grid ColumnDefinitions="*, 3*">
+
+		<!--Tree-->
+		<Border BorderThickness="3" BorderBrush="AntiqueWhite">
+			<TreeView Grid.Column="0" Items="{Binding Tree}" SelectedItem="{Binding SelectedObject}">
+
+				<TreeView.DataTemplates>
+					<TreeDataTemplate DataType="{x:Type models:Collector}" ItemsSource="{Binding Objects}">
+						<TextBlock Text="{Binding Name}"/>
+					</TreeDataTemplate>
+				</TreeView.DataTemplates>
+
+			</TreeView>
+		</Border>
+
+		<!--Content-->
+		<Grid ColumnDefinitions="*, 10*, *" Grid.Column="1">
+
+			<Button Grid.Column="0" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Command="{Binding ImageMovePrev}" IsEnabled="{Binding IsLeftOn}">
+				Prev
+			</Button>
+			
+			<Image Grid.Column="1" Source="{Binding Image}">
+				<ToolTip.Tip>
+					<TextBlock Text="{Binding ImagePath}"/>
+				</ToolTip.Tip>
+			</Image>
+
+			<Button Grid.Column="2" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Command="{Binding ImageMoveNext}" IsEnabled="{Binding IsRightOn}">
+				Next
+			</Button>
+
+		</Grid>
+		
+	</Grid>
+	
+</Window>
